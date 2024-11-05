@@ -5,63 +5,179 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="using:PeD_JRM.Helpers"
+    xmlns:local="using:PeD_JRM.Models"
     xmlns:xaml="using:Microsoft.UI.Xaml"
     mc:Ignorable="d">
+
     <Page.Resources>
         <helpers:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     </Page.Resources>
-    <Grid>
-        <StackPanel
-            x:Name="ContentArea">
-            <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
-            <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
-                <TextBlock x:Uid="Settings_Theme" />
 
-                <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                    <RadioButton
-                        x:Uid="Settings_Theme_Light"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Dark"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
-                    <RadioButton
-                        x:Uid="Settings_Theme_Default"
-                        Command="{x:Bind ViewModel.SwitchThemeCommand}"
-                        IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
-                        FontSize="15"
-                        GroupName="AppTheme">
-                        <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
-                        </RadioButton.CommandParameter>
-                    </RadioButton>
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Linha 1 -->
+            <RowDefinition Height="Auto" />
+            <!-- Linha 2 -->
+            <RowDefinition Height="*" />
+            <!-- Linha 3 -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <!-- Coluna 1 -->
+            <ColumnDefinition Width="3*" />
+            <!-- Coluna 2 -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Coluna 1, Linha 1: Botão de cadastro tipo ingrediente -->
+        <Border Grid.Column="0" Background="White" CornerRadius="8" Margin="0,0,10,0">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel HorizontalAlignment="Center" Width="300" Spacing="12" Padding="20">
+                <TextBlock Text="Cadastro de Tipo de Ingrediente" FontSize="24" FontWeight="Bold" TextAlignment="Center" />
+
+                <!-- Campo Tipo Ingrediente -->
+                <TextBlock Text="Tipo Ingrediente" />
+                <TextBox x:Name="TipoIngredienteTextBox" PlaceholderText="Digite o tipo de ingrediente" />
+
+                <!-- Campo Descrição Tipo Ingrediente -->
+                <TextBlock Text="Descrição do Tipo Ingrediente" />
+                <TextBox x:Name="DescricaoTipoIngredienteTextBox" PlaceholderText="Digite a descrição do tipo de ingrediente" AcceptsReturn="True" TextWrapping="Wrap" Height="80" />
+
+                <!-- Campo Situação -->
+                <TextBlock Text="Situação" />
+                <ToggleSwitch x:Name="SituacaoToggleSwitch" OffContent="Inativo" OnContent="Ativo" />
+
+                <!-- Campo Sigla -->
+                <TextBlock Text="Sigla" />
+                <TextBox x:Name="SiglaTextBox" PlaceholderText="Digite a sigla" MaxLength="10" />
+
+                <!-- Botões de Ação -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                    <Button Content="Salvar" Click="OnCadastroTipoIngredienteClick" />
+                    <Button Content="Cancelar" />
                 </StackPanel>
             </StackPanel>
+        </Border>
 
-            <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
-
-            <StackPanel Margin="{StaticResource XSmallTopMargin}">
-                <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
-
-                <TextBlock
-                    x:Uid="Settings_AboutDescription"
-                    Margin="{StaticResource XSmallTopMargin}"
-                    Style="{ThemeResource BodyTextBlockStyle}" />
-                <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
+        <!-- Coluna 1, Linha 2: Botão de cadastro tipo formulação -->
+        <Border Grid.Row="1" Grid.Column="0" Background="White" CornerRadius="8" Margin="0,10,10,10">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel HorizontalAlignment="Center" Padding="10">
+                <TextBlock Text="Cadastro de Tipo Formulação" FontSize="20" FontWeight="Bold" TextAlignment="Center" />
+                <Button Content="Cadastro Tipo Formulação" 
+                        Click="OnCadastroTipoFormulacaoClick" 
+                        HorizontalAlignment="Stretch" />
             </StackPanel>
-        </StackPanel>
+        </Border>
+
+        <!-- Coluna 2, Linha 1: ListView para exibir tipo ingrediente -->
+        <Border Grid.Row="0" Grid.Column="1" Background="White" CornerRadius="8" Margin="10,0,0,10">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel Padding="10">
+                <TextBlock Text="Tipos de Ingredientes" FontSize="20" FontWeight="Bold" />
+                <ListView x:Name="TipoIngredientesListView" ItemsSource="{x:Bind ViewModel.TipoIngredientes, Mode=OneWay}" Margin="0,10,0,0">
+                    <ListView.Header>
+                        <Grid Background="LightGray" Padding="10" CornerRadius="8" ColumnDefinitions="2*, *">
+                            <TextBlock Text="Nome" FontWeight="Bold" />
+                            <TextBlock Text="Descrição" FontWeight="Bold" Grid.Column="1" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:TipoIngrediente">
+                            <Grid ColumnDefinitions="2*, *" Padding="10">
+                                <TextBlock Text="{x:Bind Tipo_Ingrediente}" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock Text="{x:Bind Descricao_Tipo_Ingrediente}" FontSize="16" VerticalAlignment="Center" Grid.Column="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
+
+        <!-- Coluna 2, Linha 2: ListView para exibir tipo formulação -->
+        <Border Grid.Row="1" Grid.Column="1" Background="White" CornerRadius="8" Margin="10,10,0,10">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel Padding="10">
+                <TextBlock Text="Tipos de Formulações" FontSize="20" FontWeight="Bold" />
+                <ListView x:Name="TipoFormulacoesListView" ItemsSource="{x:Bind ViewModel.TipoFormulacoes, Mode=OneWay}" Margin="0,10,0,0">
+                    <ListView.Header>
+                        <Grid Background="LightGray" Padding="10" CornerRadius="8" ColumnDefinitions="2*, *">
+                            <TextBlock Text="Nome" FontWeight="Bold" />
+                            <TextBlock Text="Descrição" FontWeight="Bold" Grid.Column="1" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:TipoFormulacao">
+                            <Grid ColumnDefinitions="2*, *" Padding="10">
+                                <TextBlock Text="{x:Bind Tipo_Formula}" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock Text="{x:Bind Descricao_Formula}" FontSize="16" VerticalAlignment="Center" Grid.Column="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
+
+        <!-- Linha 3: Conteúdo existente na página, ocupando ambas as colunas -->
+        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="White" CornerRadius="8" Margin="0,10,0,0">
+            <Border.Shadow>
+                <ThemeShadow />
+            </Border.Shadow>
+            <StackPanel x:Name="ContentArea" Padding="20">
+                <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
+                    <TextBlock x:Uid="Settings_Theme" />
+
+                    <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                        <RadioButton
+                            x:Uid="Settings_Theme_Light"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Light</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_Theme_Dark"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                        <RadioButton
+                            x:Uid="Settings_Theme_Default"
+                            Command="{x:Bind ViewModel.SwitchThemeCommand}"
+                            IsChecked="{x:Bind ViewModel.ElementTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Default, Mode=OneWay}"
+                            FontSize="15"
+                            GroupName="AppTheme">
+                            <RadioButton.CommandParameter>
+                                <xaml:ElementTheme>Default</xaml:ElementTheme>
+                            </RadioButton.CommandParameter>
+                        </RadioButton>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock x:Uid="Settings_About" Style="{ThemeResource SubtitleTextBlockStyle}" />
+
+                <StackPanel Margin="{StaticResource XSmallTopMargin}">
+                    <TextBlock Text="{x:Bind ViewModel.VersionDescription, Mode=OneWay}" Style="{ThemeResource BodyTextBlockStyle}" />
+                    <TextBlock x:Uid="Settings_AboutDescription" Margin="{StaticResource XSmallTopMargin}" Style="{ThemeResource BodyTextBlockStyle}" />
+                    <HyperlinkButton x:Uid="SettingsPage_PrivacyTermsLink" Margin="{StaticResource SettingsPageHyperlinkButtonMargin}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

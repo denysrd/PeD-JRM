@@ -1,20 +1,36 @@
-﻿using Microsoft.UI.Xaml.Controls;
-
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using PeD_JRM.ViewModels;
 
-namespace PeD_JRM.Views;
-
-// TODO: Set the URL for your privacy policy by updating SettingsPage_PrivacyTermsLink.NavigateUri in Resources.resw.
-public sealed partial class SettingsPage : Page
+namespace PeD_JRM.Views
 {
-    public SettingsViewModel ViewModel
+    public sealed partial class SettingsPage : Page
     {
-        get;
-    }
+        public SettingsViewModel ViewModel
+        {
+            get;
+        }
 
-    public SettingsPage()
-    {
-        ViewModel = App.GetService<SettingsViewModel>();
-        InitializeComponent();
+        public SettingsPage()
+        {
+            ViewModel = App.GetService<SettingsViewModel>();
+            InitializeComponent();
+        }
+
+        // Manipulador de evento para o botão de cadastro de Tipo Ingrediente
+        private void OnCadastroTipoIngredienteClick(object sender, RoutedEventArgs e)
+        {
+            // Adicione a lógica desejada aqui
+            // Exemplo: Navegar para uma página de cadastro de ingredientes
+         //   Frame.Navigate(typeof(CadastroTipoIngredientePage));
+        }
+
+        // Manipulador de evento para o botão de cadastro de Tipo Formulação
+        private void OnCadastroTipoFormulacaoClick(object sender, RoutedEventArgs e)
+        {
+            // Adicione a lógica desejada aqui
+            // Exemplo: Navegar para uma página de cadastro de formulações
+           // Frame.Navigate(typeof(CadastroTipoFormulacaoPage));
+        }
     }
 }

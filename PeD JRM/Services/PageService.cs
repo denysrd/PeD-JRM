@@ -32,7 +32,6 @@ public class PageService : IPageService
         Configure<EmbalagensViewModel, EmbalagensPage>();
         Configure<FormulacaoEssenciaViewModel, FormulacaoEssenciaPage>();
         Configure<FormulacaoAromaViewModel, FormulacaoAromaPage>();
-
     }
 
     public Type GetPageType(string key)

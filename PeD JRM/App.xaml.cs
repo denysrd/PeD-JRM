@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
 
@@ -6,6 +7,7 @@ using PeD_JRM.Activation;
 using PeD_JRM.Contracts.Services;
 using PeD_JRM.Core.Contracts.Services;
 using PeD_JRM.Core.Services;
+using PeD_JRM.Data;
 using PeD_JRM.Helpers;
 using PeD_JRM.Models;
 using PeD_JRM.Notifications;
@@ -23,6 +25,7 @@ public partial class App : Application
     // https://docs.microsoft.com/dotnet/core/extensions/dependency-injection
     // https://docs.microsoft.com/dotnet/core/extensions/configuration
     // https://docs.microsoft.com/dotnet/core/extensions/logging
+
     public IHost Host
     {
         get;
@@ -91,9 +94,15 @@ public partial class App : Application
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
             services.AddTransient<FornecedorViewModel>();
+            services.AddTransient<FornecedorPage>();
 
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
+
+            // Configuração da string de conexão e do DbContext para MySQL
+            var connectionString = "Server=localhost;Database=db_jrmsistema;User=root;Password=Neoo@@141189;";
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 23))));
         }).
         Build();
 
