@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "PeD JRM (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "PeD JRM (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}

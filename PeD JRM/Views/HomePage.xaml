@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="PeD_JRM.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+
+            <!-- Botão para a página Cadastros -->
+            <muxc:NavigationViewItem Content="Cadastros" Icon="Contact" Tag="CadastrosPage" Tapped="NavigateToPage" />
+
+            <!-- Botão para a página Grade de Conteúdo -->
+            <muxc:NavigationViewItem Content="Grade de Conteúdo" Icon="Library" Tag="GradeDeConteúdoPage" Tapped="NavigateToPage" />
+
+            <!-- Botão para a página Listar Detalhes -->
+            <muxc:NavigationViewItem Content="Listar Detalhes" Icon="Bullets" Tag="ListarDetalhesPage" Tapped="NavigateToPage" />
+
+            <!-- Botão para a página Receitas -->
+            <muxc:NavigationViewItem Content="Receitas" Icon="Shop" Tag="ReceitasPage" Tapped="NavigateToPage" />
+
+            <!-- Botão para a página Configurações -->
+            <muxc:NavigationViewItem Content="Configurações" Icon="Setting" Tag="SettingsPage" Tapped="NavigateToPage" />
+        </StackPanel>
+    </Grid>
+</Page>
