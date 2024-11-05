@@ -22,8 +22,17 @@ public class PageService : IPageService
         Configure<GradeDeConteúdoViewModel, GradeDeConteúdoPage>();
         Configure<GradeDeConteúdoDetailViewModel, GradeDeConteúdoDetailPage>();
         Configure<SettingsViewModel, SettingsPage>();
-     
         Configure<GradeDeDadosViewModel, GradeDeDadosPage>();
+        Configure<FornecedorViewModel, FornecedorPage>();
+        Configure<TipoIngredienteViewModel, TipoIngredientePage>();
+        Configure<TipoFormulacaoViewModel, TipoFormulacaoPage>();
+        Configure<InsumosViewModel, InsumosPage>();
+        Configure<FlavorizantesViewModel, FlavorizantesPage>();
+        Configure<ComponentesAromaticosViewModel, ComponentesAromaticosPage>();
+        Configure<EmbalagensViewModel, EmbalagensPage>();
+        Configure<FormulacaoEssenciaViewModel, FormulacaoEssenciaPage>();
+        Configure<FormulacaoAromaViewModel, FormulacaoAromaPage>();
+
     }
 
     public Type GetPageType(string key)

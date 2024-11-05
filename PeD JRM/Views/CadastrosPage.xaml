@@ -22,7 +22,7 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <SymbolIcon Symbol="People" Foreground="Gray"/>
-                        <TextBlock Text="Gerenciar Fornecedores" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <TextBlock Text="Fornecedores" Margin="10,0,0,0" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
                     </StackPanel>
                     <FontIcon Glyph="&#xE72A;" FontFamily="Segoe MDL2 Assets" Foreground="Gray" FontSize="12" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </Grid>
